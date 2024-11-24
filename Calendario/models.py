@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 Roles_user=[
-    ("admin","Administrador Academico"),
+    ("administrador","Administrador Academico"),
     ("docente","Docente"),
     ("estudiante","Estudiante")
 ]
@@ -44,7 +44,7 @@ Estados_evento=[
 
 
 class Usuario(AbstractUser):
-    rol=models.CharField(choices=Roles_user,default="estudiante")
+    rol=models.CharField(choices=Roles_user,default="estudiante",max_length=15)
     def __str__(self):
         return f"{self.username} es un ({self.get_rol_display()})"
 
@@ -53,8 +53,8 @@ class Evento(models.Model):
     descripcion=models.TextField(max_length=100)
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
-    tipo_evento=models.CharField(choices=Tipos_evento)
-    estado=models.CharField(choices=Estados_evento,default="pendiente")
+    tipo_evento=models.CharField(choices=Tipos_evento,max_length=40)
+    estado=models.CharField(choices=Estados_evento,default="pendiente",max_length=15)
 
     def __str__(self):
         return f"{self.titulo} inicia el {self.fecha_inicio} terminando el {self.fecha_fin}"

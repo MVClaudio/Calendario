@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario academico</title>
+</head>
+<body>
+    <h1>Calendario Academico</h1>
+
+    <ul>
+        {% for evento in calendario%}
+            <li>{{evento.nombre}}- {{evento.fecha}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
