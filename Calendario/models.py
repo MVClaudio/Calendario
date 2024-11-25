@@ -50,7 +50,7 @@ class Usuario(AbstractUser):
 
 class Evento(models.Model):
     titulo=models.CharField(max_length=50)
-    descripcion=models.TextField(max_length=100)
+    descripcion=models.CharField(max_length=50)
     fecha_inicio=models.DateField()
     fecha_fin=models.DateField()
     tipo_evento=models.CharField(choices=Tipos_evento,max_length=40)

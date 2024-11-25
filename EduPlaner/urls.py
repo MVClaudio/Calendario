@@ -16,13 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.contrib.auth import views as auth_views
 from Calendario.views import Calendario,crear_evento,iniciar_sesion
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/",include("api_rest.urls")),
     path("accounts/",include('django.contrib.auth.urls')),
-    path("calendario/",Calendario,name="Calendario_academico"),
-     path('registration/login/',iniciar_sesion,name='Pagina_login'),
+    path("",Calendario,name="Calendario_academico"),
+    path('login/',iniciar_sesion,name='Pagina_login'),
     path("crear_evento",crear_evento,name="Crear_eventos"),
-
+    path('logout/',auth_views.LogoutView.as_view(next_page="Calendario_academico"), name='logout'),
 ]

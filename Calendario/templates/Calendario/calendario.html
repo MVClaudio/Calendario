@@ -1,17 +1,37 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendario academico</title>
+    <link rel="stylesheet" href="{% static 'Calendario/css/estilos.css'%}">
 </head>
 <body>
-    <h1>Calendario Academico</h1>
+    <h1 id="title-calendario">Calendario Academico</h1>
+    <div class="button-container"></div>
+    {% if user.is_authenticated %}
+        <a href="{% url 'Crear_eventos'%}" class="btn-admin">Administrar eventos</a>
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Cerrar Sesión</button>
+        </form>
+    {% else %}
+        <a href="{% url 'Pagina_login'%}" class="btn-login">Iniciar sesion</a>
+    {% endif%}
 
-    <ul>
-        {% for evento in calendario%}
-            <li>{{evento.nombre}}- {{evento.fecha}}</li>
+    <div class="calendario-container">
+        {% for item in calendario %}
+        <div class="evento-block">
+            {% if item.titulo %}
+                <h4 class="titulo-evento">{{item.titulo}}</h2>
+                <p class="fecha-evento">Fecha: {{item.fecha_inicio}}</p>
+            {% elif item.nombre %}
+                <h4 class="titulo-feriado">{{item.nombre}}</h4>
+                <p class="fecha-feriado"> {{item.fecha}}</p>
+            {% endif %}
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>

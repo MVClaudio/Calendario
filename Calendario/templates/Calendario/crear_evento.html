@@ -1,17 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos crear</title>
+    <title>Crear evento</title>
+    <link rel="stylesheet" href="{% static 'Calendario/css/estilos.css' %}">
 </head>
 <body>
-    <h1>Crear eventos para calendario</h1>
+    <h1 id="title-calendario">Crear eventos para calendario</h1>
 
-    <form method="post">
-        {% csrf_token%}
-        {{form.as_p}}
-        <button type="submit">Guardar evento</button>
-    </form>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-admin">Guardar evento</button>
+            <a href="{% url 'Calendario_academico'%}" class="btn-volver">Volver al calendario</a>
+        </form>
+    </div>
 </body>
 </html>
