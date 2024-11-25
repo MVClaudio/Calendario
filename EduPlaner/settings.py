@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Calendario',
     'api_rest',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

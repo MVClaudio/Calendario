@@ -8,5 +8,5 @@ router.register(r"feriados",FeriadoViewSet)
 
 urlpatterns=[
     path("",include(router.urls)),
-    path("calendario",CalendarioViewSet.as_view(),name="Calendario completo")
+    path("calendario/",CalendarioViewSet.as_view(),name="Calendario completo")
 ]

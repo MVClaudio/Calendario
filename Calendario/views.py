@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import  Evento,Feriado
 from .forms import EventoForm
+from django.contrib import messages
 import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -24,7 +25,7 @@ def obtener_feriados():
         for feriado in feriados:
             nombre= feriado.get("nombre")
             fecha= parse_date(feriado.get("fecha"))
-            tipo="nacional" if feriado["tipo"]=="civil" else "regional"
+            tipo="nacional" if feriado["tipo"]=="Civil" else "regional"
             Feriado.objects.update_or_create(fecha=fecha,defaults={"nombre":nombre,"tipo":tipo})
         print("Feriado agregado/actualizado correctamente en la BD")
     else:
@@ -72,6 +73,9 @@ def iniciar_sesion(request):
         passwrd= request.POST['password']
         usuario= authenticate(request,username=usrname,password=passwrd)
         if usuario is not None:
+            if usuario.rol != "administrador":
+                messages.error(request,"Esta cuenta no es de un administrador")
+                return redirect("Calendario_academici")
             login(request,usuario)
             return redirect('Calendario_academico')
         else:
